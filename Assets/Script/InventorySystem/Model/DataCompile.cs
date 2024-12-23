@@ -14,14 +14,14 @@ public class DataSaving
             data.itemQuanity.Add(item.itemQuanity);
         }
         string json = JsonUtility.ToJson(data, true);
-        File.WriteAllText(Application.dataPath + "/Data/Json/SaveData.json", json);
+        File.WriteAllText(Application.persistentDataPath + "SaveData.json", json);
     }
 }
 public class DataLoading
 {
     public void LoadData()
     {
-        string json = File.ReadAllText(Application.dataPath + "/Data/Json/SaveData.json");
+        string json = File.ReadAllText(Application.persistentDataPath + "SaveData.json");
         Data data = JsonUtility.FromJson<Data>(json);
         if (data == null) return;
         List<InventoryItem> listOfInventoryItem = new List<InventoryItem>();

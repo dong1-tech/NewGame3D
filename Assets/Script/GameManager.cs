@@ -31,18 +31,21 @@ public class GameManager : MonoBehaviour
             Instance = this;
         }
     }
+
+    private void OnEnable()
+    {
+        playerHealth.OnHealthChange += UpdateHealthBar;
+    }
+
     private void Start()
     {
+        Debug.Log("a");
         if (!GameStartController.isNewGame)
         {
             LoadGame();
         }
         currentState = GameState.GameRunning;
-    }
-
-    private void OnEnable()
-    {
-        playerHealth.OnHealthChange += UpdateHealthBar;
+        UpdateState(currentState);
     }
 
     public void UpdateState(GameState newState)
@@ -86,6 +89,7 @@ public class GameManager : MonoBehaviour
     {
         isPause = false;
         isInventoryOpen = false;
+        Time.timeScale = 1f;
     }
 
     private void UpdateHealthBar(float healthPercent)

@@ -2510,6 +2510,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38f1584ace6cf6944b67ad02f0282b1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rotationSpeed: 0.05
   playerSpeed: 150
   playerShieldCollider: {fileID: 4798503647691700913}
   playerSwordCollider: {fileID: 1292100311947307300}

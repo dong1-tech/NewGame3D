@@ -47,11 +47,11 @@ public class Enemy : MonoBehaviour, IDeadable
     private void Awake()
     {
         enemyHealth = GetComponentInChildren<Health>();
-        isCreatedHealthBar = false;
-        returnPosition = transform.position;
         enemyAgent = GetComponent<NavMeshAgent>();
         enemyStateMachine = new StateMachine();
         animator = GetComponent<Animator>();
+        isCreatedHealthBar = false;
+        returnPosition = transform.position;
         enemyAgent.stoppingDistance = attack2Distance;
         CreatState();
     }

@@ -16,10 +16,6 @@ namespace GameConfig
         private void Awake()
         {
             LoadFromResources();
-        }
-
-        private void Start()
-        {
             InvokeRepeating("CheckDistance", 1, 3);
         }
 
@@ -53,7 +49,9 @@ namespace GameConfig
             {
                 for (int j = 0; j < place.NumberOfEachEnemy[i]; j++)
                 {
-                    Enemy spawnEnemy = Instantiate(place.Enemies[i], place.SpawmPosition, Quaternion.identity);
+                    Vector2 random = Random.insideUnitCircle * 2;
+                    Enemy spawnEnemy = Instantiate(place.Enemies[i],
+                        new Vector3(place.SpawmPosition.x + random.x, place.SpawmPosition.y, place.SpawmPosition.z + random.y), Quaternion.identity);
                     spawnEnemy.SetUp(playerPos, cam);
                 }
             }

@@ -13,7 +13,7 @@ public class GameStartController : MonoBehaviour
 
     private void Awake()
     {
-        if(File.Exists(Application.dataPath + "/Data/Json/SaveData.json"))
+        if (File.Exists(Application.persistentDataPath + "SaveData.json"))
         {
             continueButton.SetActive(true);
         }
@@ -26,7 +26,7 @@ public class GameStartController : MonoBehaviour
     public void OnClickNewGame()
     {
         isNewGame = true;
-        File.Create(Application.dataPath + "/Data/Json/SaveData.json");
+        File.Create(Application.persistentDataPath + "SaveData.json");
         loadingScene.Show();
         loadingScene.LoadLevel(1);
     }
@@ -36,5 +36,10 @@ public class GameStartController : MonoBehaviour
         isNewGame = false;
         loadingScene.Show();
         loadingScene.LoadLevel(1);
+    }
+
+    public void OnClickExitGame()
+    {
+        Application.Quit();
     }
 }

@@ -14,6 +14,9 @@ public class PlayerController : MonoBehaviour
     private InputAction jumpAction;
     private InputAction defendAction;
     private InputAction attackAction;
+    private InputAction rotationAction;
+    [SerializeField]
+    private float rotationSpeed;
 
     private Animator animator;
     private Rigidbody rigi;
@@ -49,6 +52,9 @@ public class PlayerController : MonoBehaviour
         attackAction.Enable();
         defendAction = playerInput.Player.Defend;
         defendAction.Enable();
+        rotationAction = playerInput.Player.Rotation;
+        rotationAction.Enable();
+        rotationAction.performed += OnRotation;
     }
 
     private void OnDisable()
@@ -57,6 +63,8 @@ public class PlayerController : MonoBehaviour
         jumpAction.Disable();
         attackAction.Disable();
         defendAction.Disable();
+        rotationAction.performed -= OnRotation;
+        rotationAction.Disable();
     }
 
     // Update is called once per frame
@@ -64,20 +72,14 @@ public class PlayerController : MonoBehaviour
     {
         if (!GameManager.Instance.IsInventoryOpen() && !GameManager.Instance.IsPause())
         {
-            float mouseX = Input.GetAxis("Mouse X");
-            transform.Rotate(Vector3.up * mouseX);
+            //float mouseX = Input.GetAxis("Mouse X");
+            //transform.Rotate(Vector3.up * mouseX);
             playerStateMachine.Update();
+            OnMove();
         }
         else
         {  
             playerStateMachine.TransitionTo("idle");
-        }
-    }
-    private void FixedUpdate()
-    {
-        if (!GameManager.Instance.IsInventoryOpen() && !GameManager.Instance.IsPause())
-        {
-            OnMove();
         }
     }
     private void CreateState()
@@ -373,14 +375,25 @@ public class PlayerController : MonoBehaviour
     {
         transform.position += new Vector3(0, 0.5f, 0);
     }
+
     public void HandlerOnHit()
     {
         playerStateMachine.TransitionTo("hit");
     }
+
     public void HandlerOnDefendSucess()
     {
         playerShieldCollider.enabled = false;
         playerStateMachine.currentState.isCompleted = true;
         playerStateMachine.TransitionTo("defendHit");
+    }
+
+    private void OnRotation(InputAction.CallbackContext context)
+    {
+        if (!GameManager.Instance.IsInventoryOpen() && !GameManager.Instance.IsPause())
+        {
+            float value = context.ReadValue<Vector2>().x;
+            transform.rotation = Quaternion.Euler(0, value * rotationSpeed + transform.rotation.eulerAngles.y, 0);
+        }
     }
 }

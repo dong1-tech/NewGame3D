@@ -1,7 +1,6 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
@@ -66,6 +65,12 @@ public class UIManager : MonoBehaviour
     public void OnClickSaveIcon()
     {
         GameManager.Instance.SaveGame();
+    }
+
+    public void OnClickHomeIcon()
+    {
+        GameManager.Instance.SaveGame();
+        SceneManager.LoadScene(0);
     }
 
     public EnemyHealthBarUI CreateHealthBar(Transform followPos, Camera cam)

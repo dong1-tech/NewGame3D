@@ -15,6 +15,7 @@ public class Health : MonoBehaviour, IHealth
 
     public void TakeDamage(float damage)
     {
+        if (currentHealth <= 0) return;
         currentHealth -= damage;
         if(currentHealth <= 0)
         {
