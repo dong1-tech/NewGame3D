@@ -43,15 +43,16 @@ namespace GameConfig
             }
         }
 
-        private void SpawnEnemy(PlaceToSpawnSO place)
+        private void SpawnEnemy(PlaceToSpawnSO places)
         {
-            for (int i = 0; i < place.Enemies.Count; i++)
+
+            for (int i = 0; i < places.enemySpawnConfigs.Count; i++)
             {
-                for (int j = 0; j < place.NumberOfEachEnemy[i]; j++)
+                for(int j = 0; j < places.enemySpawnConfigs[i].number; j++)
                 {
                     Vector2 random = Random.insideUnitCircle * 2;
-                    Enemy spawnEnemy = Instantiate(place.Enemies[i],
-                        new Vector3(place.SpawmPosition.x + random.x, place.SpawmPosition.y, place.SpawmPosition.z + random.y), Quaternion.identity);
+                    Enemy spawnEnemy = Instantiate(places.enemySpawnConfigs[i].prefab,
+                        new Vector3(places.SpawmPosition.x + random.x, places.SpawmPosition.y, places.SpawmPosition.z + random.y), Quaternion.identity);
                     spawnEnemy.SetUp(playerPos, cam);
                 }
             }
