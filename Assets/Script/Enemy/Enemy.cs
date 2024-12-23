@@ -13,7 +13,7 @@ public class Enemy : MonoBehaviour, IDeadable
     [SerializeField] private float attack2Distance;
 
     private bool isHit;
-    private bool isDie;
+    private bool isDie = false;
     private bool isCreatedHealthBar;
 
     [SerializeField] protected float damage;
@@ -175,6 +175,7 @@ public class Enemy : MonoBehaviour, IDeadable
         if (isDie)
         {
             enemyStateMachine.TransitionTo(dieState);
+            return;
         }
         if (!enemyStateMachine.currentState.isCompleted)
         {
@@ -238,6 +239,7 @@ public class Enemy : MonoBehaviour, IDeadable
 
     public virtual void OnDead()
     {
+        isDie = true;
         enemyStateMachine.TransitionTo(dieState);
         Invoke("DestroyObject", 2);
     }

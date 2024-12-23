@@ -81,6 +81,7 @@ public class PlayerController : MonoBehaviour
         {  
             playerStateMachine.TransitionTo("idle");
         }
+        Debug.Log(1/Time.deltaTime);
     }
     private void CreateState()
     {
@@ -324,13 +325,13 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        if (direction.y > 0)
+        if (direction.y > 0 && direction.y > Mathf.Abs(direction.x))
         {
             playerStateMachine.TransitionTo("mForward");
             return;
         }
 
-        if (direction.y < 0)
+        if (direction.y < 0 && Mathf.Abs(direction.y) > Mathf.Abs(direction.x))
         {
             playerStateMachine.TransitionTo("mBackward");
             return;
@@ -357,6 +358,7 @@ public class PlayerController : MonoBehaviour
             return;
         }
         direction = moveAction.ReadValue<Vector2>();
+        Debug.Log(direction);
         Vector3 velocity = transform.TransformVector(new Vector3(direction.x, 0, direction.y)) * playerSpeed * Time.fixedDeltaTime;
         rigi.velocity = new Vector3(velocity.x, rigi.velocity.y, velocity.z);
     }

@@ -14,6 +14,7 @@ public class EnemyBody : MonoBehaviour, IHitable
 
     public void OnHit(float damageRecieve)
     {
+
         enemy.HandlerOnHit();
         enemyHealth.TakeDamage(damageRecieve);
     }
