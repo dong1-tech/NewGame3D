@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Place 2
   m_EditorClassIdentifier: 
   spawnPosition: {x: 733.7347, y: 2.898972, z: 203.4758}
-  enemies:
-  - {fileID: 5445030004018691641, guid: 928a1377c1cd4515b208fef3a396b8ea, type: 3}
-  numberOfEachEnemy: 04000000
+  enemySpawnConfigs:
+  - prefab: {fileID: 5445030004018691641, guid: 928a1377c1cd4515b208fef3a396b8ea, type: 3}
+    number: 4

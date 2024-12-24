@@ -13,7 +13,10 @@ public class PlayerBody : MonoBehaviour, IHitable
 
     public void OnHit(float damageRecieve)
     {
-        controller.HandlerOnHit();
-        playerHealth.TakeDamage(damageRecieve);
+        if (!playerHealth.IsDead())
+        {
+            controller.HandlerOnHit();
+            playerHealth.TakeDamage(damageRecieve);
+        }
     }
 }

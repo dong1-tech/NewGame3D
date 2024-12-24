@@ -1654,7 +1654,7 @@ GameObject:
   - component: {fileID: 7169274372601786421}
   - component: {fileID: 7401207111412038942}
   - component: {fileID: 4822212281272180374}
-  - component: {fileID: 8459875758302077138}
+  - component: {fileID: 7926262427145558755}
   m_Layer: 8
   m_Name: pelvis
   m_TagString: Untagged
@@ -1699,8 +1699,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.1419706, y: 0.2587779, z: 0.43280652}
-  m_Center: {x: -0.32326335, y: 0.0057484126, z: 0.0032694207}
+  m_Size: {x: 1.1419706, y: 0.2587779, z: 0.59907115}
+  m_Center: {x: -0.32326332, y: 0.005748395, z: 0.004392339}
 --- !u!114 &4822212281272180374
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1714,7 +1714,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller: {fileID: 4012267160938550971}
---- !u!114 &8459875758302077138
+--- !u!114 &7926262427145558755
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1723,7 +1723,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5790467570454460136}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 075c84a6645068a459c3aba1d7e80781, type: 3}
+  m_Script: {fileID: 11500000, guid: e2875029caf90c849a747ea84ed5bd5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 100
@@ -2511,7 +2511,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationSpeed: 0.05
-  playerSpeed: 150
+  playerSpeed: 250
   playerShieldCollider: {fileID: 4798503647691700913}
   playerSwordCollider: {fileID: 1292100311947307300}
 --- !u!54 &2779536717199743939

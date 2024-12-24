@@ -3,10 +3,11 @@ using UnityEngine;
 
 public class Health : MonoBehaviour, IHealth
 {
-    private float currentHealth;
+    protected float currentHealth;
     [SerializeField]
-    private float maxHealth;
+    protected float maxHealth;
     public Action<float> OnHealthChange;
+    protected bool isDead = false;
 
     private void Start()
     {
@@ -15,10 +16,10 @@ public class Health : MonoBehaviour, IHealth
 
     public void TakeDamage(float damage)
     {
-        if (currentHealth <= 0) return;
         currentHealth -= damage;
         if(currentHealth <= 0)
         {
+            isDead = true;
             GetComponentInParent<IDeadable>().OnDead();
         }
         OnHealthChange.Invoke(currentHealth / maxHealth);
@@ -37,4 +38,8 @@ public class Health : MonoBehaviour, IHealth
         OnHealthChange.Invoke(currentHealth / maxHealth);
     }
 
+    public bool IsDead()
+    {
+        return isDead;
+    }
 }

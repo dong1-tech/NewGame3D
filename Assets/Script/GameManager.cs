@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
     private Health playerHealth;
 
     [HideInInspector]
-    public GameState currentState;
+    private GameState currentState;
     public static Action<GameState> OnStateChange;
 
     private bool isInventoryOpen = false;
@@ -39,7 +39,6 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        Debug.Log("a");
         if (!GameStartController.isNewGame)
         {
             LoadGame();
@@ -71,7 +70,7 @@ public class GameManager : MonoBehaviour
 
     private void OnEnd()
     {
-        
+        //to be continued
     }
 
     private void OnPause()

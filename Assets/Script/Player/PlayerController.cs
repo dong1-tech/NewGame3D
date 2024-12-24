@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour, IDeadable
 {
     private LayerMask groundLayer;
     private Transform distanceToGround;
@@ -81,7 +81,6 @@ public class PlayerController : MonoBehaviour
         {  
             playerStateMachine.TransitionTo("idle");
         }
-        Debug.Log(1/Time.deltaTime);
     }
     private void CreateState()
     {
@@ -206,10 +205,6 @@ public class PlayerController : MonoBehaviour
         dieState.onEnter = delegate
         {
             animator.CrossFade("Die01_SwordAndShield", 0);
-        };
-        dieState.onFrame = delegate
-        {
-            StateChange();
         };
         var dieStayState = playerStateMachine.CreateState("dieStay");
         dieStayState.onEnter = delegate
@@ -358,7 +353,6 @@ public class PlayerController : MonoBehaviour
             return;
         }
         direction = moveAction.ReadValue<Vector2>();
-        Debug.Log(direction);
         Vector3 velocity = transform.TransformVector(new Vector3(direction.x, 0, direction.y)) * playerSpeed * Time.fixedDeltaTime;
         rigi.velocity = new Vector3(velocity.x, rigi.velocity.y, velocity.z);
     }
@@ -397,5 +391,18 @@ public class PlayerController : MonoBehaviour
             float value = context.ReadValue<Vector2>().x;
             transform.rotation = Quaternion.Euler(0, value * rotationSpeed + transform.rotation.eulerAngles.y, 0);
         }
+    }
+
+    public void OnDead()
+    {
+        playerStateMachine.TransitionTo("die");
+        Invoke("Die", 1);
+    }
+
+    public void Die()
+    {
+        GameManager.Instance.UpdateState(GameState.End);
+        GetComponentInChildren<PlayerHealth>().RevivePlayer();
+        playerStateMachine.TransitionTo("idle");
     }
 }
