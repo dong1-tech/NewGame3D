@@ -100,7 +100,7 @@ public class GameManager : MonoBehaviour
     public void NotifyOnAttack(Collider other, float damage)
     {
         IDefendable defendObject = other.GetComponent<IDefendable>();
-        if(defendObject != null )
+        if(defendObject != null)
         {
             defendObject.OnDefend();
             return;

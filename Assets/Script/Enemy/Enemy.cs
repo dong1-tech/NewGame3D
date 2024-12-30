@@ -8,12 +8,10 @@ public class Enemy : MonoBehaviour, IDeadable
 
     [SerializeField] protected Transform playerPos;
 
-    [SerializeField] private float guardDistance;
-    [SerializeField] private float chasingDistance;
-    [SerializeField] private float attack2Distance;
+    [SerializeField] protected float guardDistance;
+    [SerializeField] protected float chasingDistance;
+    [SerializeField] protected float attack2Distance;
 
-    private bool isHit;
-    private bool isDie = false;
     private bool isCreatedHealthBar;
 
     [SerializeField] protected float damage;
@@ -25,23 +23,23 @@ public class Enemy : MonoBehaviour, IDeadable
     private Health enemyHealth;
     private EnemyHealthBarUI healthBar;
 
-    private StateMachine enemyStateMachine;
+    protected StateMachine enemyStateMachine;
 
     private NavMeshAgent enemyAgent;
 
-    private static Vector3 returnPosition;
+    protected Vector3 returnPosition;
 
-    private Animator animator;
+    protected Animator animator;
 
     //State
-    private StateMachine.State idleState;
-    private StateMachine.State attack2State;
-    private StateMachine.State dieState;
-    private StateMachine.State getHitState;
-    private StateMachine.State runState;
-    private StateMachine.State walkState;
-    private StateMachine.State guardState;
-    private StateMachine.State dizzyState;
+    protected StateMachine.State idleState;
+    protected StateMachine.State attack2State;
+    protected StateMachine.State dieState;
+    protected StateMachine.State getHitState;
+    protected StateMachine.State runState;
+    protected StateMachine.State walkState;
+    protected StateMachine.State guardState;
+    protected StateMachine.State dizzyState;
 
 
     private void Awake()
@@ -76,7 +74,7 @@ public class Enemy : MonoBehaviour, IDeadable
         enemyStateMachine.currentState.isCompleted = true;
     }
     
-    private void CreatState()
+    protected virtual void CreatState()
     {
         idleState = enemyStateMachine.CreateState("idle");
         idleState.onEnter = delegate
@@ -169,21 +167,11 @@ public class Enemy : MonoBehaviour, IDeadable
         };
     }
 
-    void StateChange()
+    protected virtual void StateChange()
     {
         float distance = Vector3.Distance(transform.position, playerPos.position);
-        if (isDie)
-        {
-            enemyStateMachine.TransitionTo(dieState);
-            return;
-        }
         if (!enemyStateMachine.currentState.isCompleted)
         {
-            return;
-        }
-        if (isHit)
-        {
-            enemyStateMachine.TransitionTo(getHitState);
             return;
         }
         if(distance < attack2Distance)
@@ -239,7 +227,6 @@ public class Enemy : MonoBehaviour, IDeadable
 
     public virtual void OnDead()
     {
-        isDie = true;
         enemyStateMachine.TransitionTo(dieState);
         Invoke("DestroyObject", 2);
     }
@@ -253,7 +240,8 @@ public class Enemy : MonoBehaviour, IDeadable
     public void SetUp(Transform playerPos, Camera cam)
     {
         this.playerPos = playerPos;
-        this.cam = cam;
+        this.cam = cam;   
     }
-
 }
+
+

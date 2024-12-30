@@ -15,4 +15,6 @@ MonoBehaviour:
   spawnPosition: {x: 733.7347, y: 2.898972, z: 203.4758}
   enemySpawnConfigs:
   - prefab: {fileID: 5445030004018691641, guid: 928a1377c1cd4515b208fef3a396b8ea, type: 3}
-    number: 4
+    number: 2
+  - prefab: {fileID: 5075524976137012375, guid: e2aafa8770d34a9591b41bedf4e318ba, type: 3}
+    number: 2

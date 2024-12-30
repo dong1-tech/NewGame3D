@@ -50,7 +50,7 @@ namespace GameConfig
             {
                 for(int j = 0; j < places.enemySpawnConfigs[i].number; j++)
                 {
-                    Vector2 random = Random.insideUnitCircle * 2;
+                    Vector2 random = Random.insideUnitCircle * 4;
                     Enemy spawnEnemy = Instantiate(places.enemySpawnConfigs[i].prefab,
                         new Vector3(places.SpawmPosition.x + random.x, places.SpawmPosition.y, places.SpawmPosition.z + random.y), Quaternion.identity);
                     spawnEnemy.SetUp(playerPos, cam);
