@@ -1,6 +1,7 @@
 using UnityEngine;
 using InventorySystem;
 using System;
+using GameConfig;
 
 public class GameManager : MonoBehaviour
 {
@@ -17,6 +18,9 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private Health playerHealth;
 
+    [SerializeField]
+    private PlayerStamina playerStamina;
+
     [HideInInspector]
     private GameState currentState;
     public static Action<GameState> OnStateChange;
@@ -24,17 +28,21 @@ public class GameManager : MonoBehaviour
     private bool isInventoryOpen = false;
     private bool isPause = false;
 
+    private ItemUsingHandler itemUsingHandler;
+
     private void Awake()
     {
         if(Instance == null)
         {
             Instance = this;
         }
+        itemUsingHandler = new();
     }
 
     private void OnEnable()
     {
         playerHealth.OnHealthChange += UpdateHealthBar;
+        playerStamina.OnStaminaChange += UpdateStaminaBar;
     }
 
     private void Start()
@@ -45,6 +53,12 @@ public class GameManager : MonoBehaviour
         }
         currentState = GameState.GameRunning;
         UpdateState(currentState);
+    }
+
+    private void OnDisable()
+    {
+        playerHealth.OnHealthChange -= UpdateHealthBar;
+        playerStamina.OnStaminaChange -= UpdateStaminaBar;
     }
 
     public void UpdateState(GameState newState)
@@ -97,6 +111,12 @@ public class GameManager : MonoBehaviour
         UIManager.Instance.UpdateHealthBar(healthPercent);
     }
 
+    private void UpdateStaminaBar(float staminaPercent)
+
+    {
+        UIManager.Instance.UpdateStaminaBar(staminaPercent);
+    }
+
     public void NotifyOnAttack(Collider other, float damage)
     {
         IDefendable defendObject = other.GetComponent<IDefendable>();
@@ -120,6 +140,7 @@ public class GameManager : MonoBehaviour
     public void NotifyOnDropItem(int enemyID)
     {
         itemDropManager.OnDropItem(enemyID);
+
     }
 
     public void LoadGame()
@@ -135,13 +156,19 @@ public class GameManager : MonoBehaviour
 
     public void NotifyOnUseItem(int itemID)
     {
-        // to be continued
-        Debug.Log("aaa");
+        ItemSO usedItem = ItemSearching.instance.GetItemFromID(itemID);
+        itemUsingHandler.ClassifyItem(usedItem.itemTag, usedItem.itemSize);
+    }
+
+    public void HealPlayer(int amount)
+    {
+        playerHealth.Heal(amount);
     }
 
     public bool IsInventoryOpen() { return isInventoryOpen; }
 
     public bool IsPause() {  return isPause; }
+
 }
 
 public enum GameState

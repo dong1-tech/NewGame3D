@@ -29,11 +29,6 @@ public class EnemiesSO : ScriptableObject
     }
 }
 
-public enum ItemTier
-{
-    normal = 60, rare = 30, epic = 5, legendary = 1
-}
-
 public enum EnemyTier
 {
     tierC = 1, tierB = 2, tierA = 3, tierS = 4

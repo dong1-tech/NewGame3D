@@ -29,10 +29,13 @@ public class PlayerController : MonoBehaviour, IDeadable
     [SerializeField]
     private BoxCollider playerSwordCollider;
 
+    private PlayerStamina playerStamina;
+
     private StateMachine playerStateMachine;
 
     private void Awake()
     {
+        playerStamina = GetComponent<PlayerStamina>();
         playerStateMachine = new StateMachine();
         animator = GetComponent<Animator>();
         rigi = GetComponent<Rigidbody>();
@@ -87,15 +90,7 @@ public class PlayerController : MonoBehaviour, IDeadable
         var idleState = playerStateMachine.CreateState("idle");
         idleState.onEnter = delegate
         {
-            int idleAnimationNum = Random.Range(1, 3);
-            if (idleAnimationNum == 1)
-            {
-                animator.CrossFade("Idle_Battle_SwordAndShield", 0);
-            }
-            else
-            {
-                animator.CrossFade("Idle_Normal_SwordAndShield", 0);
-            }
+            animator.CrossFade("Idle_Normal_SwordAndShield", 0);
         };
         idleState.onFrame = delegate
         {
@@ -145,6 +140,11 @@ public class PlayerController : MonoBehaviour, IDeadable
         var attackState = playerStateMachine.CreateState("attack");
         attackState.onEnter = delegate
         {
+            if (!playerStamina.OnAttack())
+            {
+                playerStateMachine.TransitionTo("idle");
+                return;
+            }
             playerSwordCollider.enabled = true;
             if(numOfAttack > 3) { numOfAttack = 1; }
             switch (numOfAttack)
@@ -181,7 +181,13 @@ public class PlayerController : MonoBehaviour, IDeadable
         var defendState = playerStateMachine.CreateState("defend");
         defendState.onEnter = delegate
         {
+            if(!playerStamina.OnDefendHit())
+            {
+                playerStateMachine.TransitionTo("idle");
+                return;
+            }
             animator.CrossFade("Defend_SwordAndShield", 0);
+            playerStateMachine.currentState.isCompleted = false;
             playerShieldCollider.enabled = true;
         };
         defendState.onFrame = delegate
@@ -299,9 +305,13 @@ public class PlayerController : MonoBehaviour, IDeadable
             playerStateMachine.TransitionTo("jump");
             return;
         }
-        if (defendAction.inProgress)
+        if (defendAction.IsPressed())
         {
             playerStateMachine.TransitionTo("defend");
+            return;
+        }
+        if (defendAction.inProgress)
+        {
             return;
         }
         if (attackAction.WasPressedThisFrame())

@@ -10,7 +10,10 @@ public class UIManager : MonoBehaviour
     private EnemyHealthBarInstantiate newSpawner;
 
     [SerializeField]
-    private HealthBarUI healthBarUI;
+    private AllBarUI healthBarUI;
+
+    [SerializeField]
+    private AllBarUI staminaBarUI;
 
     [SerializeField]
     private GameObject InventoryScene;
@@ -81,5 +84,10 @@ public class UIManager : MonoBehaviour
     public void UpdateHealthBar(float healthPercent)
     {
         healthBarUI.OnValueChange(healthPercent);
+    }
+
+    public void UpdateStaminaBar(float staminaPercent)
+    {
+        staminaBarUI.OnValueChange(staminaPercent);
     }
 }

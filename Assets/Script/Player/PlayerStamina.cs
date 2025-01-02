@@ -6,47 +6,46 @@ public class PlayerStamina : MonoBehaviour
     private float currentStamina;
     [SerializeField]
     private float maxStamina;
+    [SerializeField]
     private float recoveryAmount;
-
-    private bool isFull;
+    [SerializeField]
+    private float usedStaminaPerAttack;
+    [SerializeField]
+    private float usedStaminaPerDefend;
 
     public Action<float> OnStaminaChange;
 
-    private void Init()
+    private void Awake()
     {
         currentStamina = maxStamina;
+        InvokeRepeating("RecoveryStamina", 0, 0.5f);
     }
 
-    private void Update()
+    public bool OnDefendHit()
     {
-        if(currentStamina < maxStamina)
+        if(usedStaminaPerDefend > currentStamina)
         {
-            RecoveryStamina();
+            return false;
         }
-    }
-
-    public void OnDefendHit(float usedStamina)
-    {
-        if(usedStamina > currentStamina)
-        {
-            return;
-        }
-        currentStamina -= usedStamina;
+        currentStamina -= usedStaminaPerDefend;
         OnStaminaChange.Invoke(currentStamina / maxStamina);
+        return true;
     }
 
-    public void OnAttack(float usedStamina)
+    public bool OnAttack()
     {
-        if (usedStamina > currentStamina)
+        if (usedStaminaPerAttack > currentStamina)
         {
-            return;
+            return false;
         }
-        currentStamina -= usedStamina;
+        currentStamina -= usedStaminaPerAttack;
         OnStaminaChange.Invoke(currentStamina / maxStamina);
+        return true;
     }
     
-    public void RecoveryStamina()
+    private void RecoveryStamina()
     {
+        if (currentStamina == maxStamina) return;
         if(currentStamina + recoveryAmount > maxStamina)
         {
             currentStamina = maxStamina;

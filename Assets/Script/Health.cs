@@ -27,7 +27,7 @@ public class Health : MonoBehaviour, IHealth
 
     public void Heal(float healAmount)
     {
-        if(currentHealth + healAmount > maxHealth)
+        if (currentHealth + healAmount > maxHealth)
         {
             currentHealth = maxHealth;
         }

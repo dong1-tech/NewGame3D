@@ -1782,6 +1782,7 @@ GameObject:
   - component: {fileID: 140636059}
   - component: {fileID: 140636061}
   - component: {fileID: 140636060}
+  - component: {fileID: 140636062}
   m_Layer: 0
   m_Name: Stamina Bar
   m_TagString: Untagged
@@ -1805,8 +1806,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 63.33, y: -58.6511}
-  m_SizeDelta: {x: -254.47, y: -153.1755}
+  m_AnchoredPosition: {x: 63.900013, y: 0.15000153}
+  m_SizeDelta: {x: -256.00003, y: -154.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &140636060
 MonoBehaviour:
@@ -1829,10 +1830,10 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_Sprite: {fileID: 858897330, guid: 30e46190d89605941b3906c2d994451f, type: 3}
-  m_Type: 0
+  m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
-  m_FillMethod: 4
+  m_FillMethod: 0
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
@@ -1846,6 +1847,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 140636058}
   m_CullTransparentMesh: 1
+--- !u!114 &140636062
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 140636058}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78be6d9d7c9c07046bae929e88ea0458, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &148233565
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3460,8 +3473,8 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 615371533}
-  - {fileID: 782161895}
   - {fileID: 140636059}
+  - {fileID: 782161895}
   m_Father: {fileID: 114626996}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -4621,6 +4634,7 @@ MonoBehaviour:
   inventoryController: {fileID: 1830648722}
   itemDropManager: {fileID: 1548920417}
   playerHealth: {fileID: 954361221}
+  playerStamina: {fileID: 1273519652}
 --- !u!4 &389564181
 Transform:
   m_ObjectHideFlags: 0
@@ -8449,6 +8463,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   newSpawner: {fileID: 1538604513}
   healthBarUI: {fileID: 615371536}
+  staminaBarUI: {fileID: 140636062}
   InventoryScene: {fileID: 2051630843}
   PauseGameScene: {fileID: 1831231650}
 --- !u!1001 &757442124
@@ -8998,8 +9013,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 63.3282, y: 0.667}
-  m_SizeDelta: {x: -254.4682, y: -152.0637}
+  m_AnchoredPosition: {x: 63.350002, y: -59.050003}
+  m_SizeDelta: {x: -255.30002, y: -153.1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &782161896
 MonoBehaviour:
@@ -10575,6 +10590,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5790467570454460136, guid: 2dfbb63c9cdf7504faf4ff26b0581598, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8189980434977739222, guid: 2dfbb63c9cdf7504faf4ff26b0581598, type: 3}
       propertyPath: m_Name
       value: MaleCharacterPBR
@@ -10622,8 +10641,16 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8189980434977739222, guid: 2dfbb63c9cdf7504faf4ff26b0581598, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1273519652}
   m_SourcePrefab: {fileID: 100100000, guid: 2dfbb63c9cdf7504faf4ff26b0581598, type: 3}
+--- !u!1 &954361220 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8189980434977739222, guid: 2dfbb63c9cdf7504faf4ff26b0581598, type: 3}
+  m_PrefabInstance: {fileID: 954361219}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &954361221 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7926262427145558755, guid: 2dfbb63c9cdf7504faf4ff26b0581598, type: 3}
@@ -14661,6 +14688,22 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8855052669661678444, guid: 2dfbb63c9cdf7504faf4ff26b0581598, type: 3}
   m_PrefabInstance: {fileID: 954361219}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1273519652
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 954361220}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8fe4938aa3dd9a1439fbf75539661945, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxStamina: 10
+  recoveryAmount: 1
+  usedStaminaPerAttack: 3
+  usedStaminaPerDefend: 5
 --- !u!1 &1286494700
 GameObject:
   m_ObjectHideFlags: 0

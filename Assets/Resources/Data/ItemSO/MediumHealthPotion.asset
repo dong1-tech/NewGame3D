@@ -19,3 +19,5 @@ MonoBehaviour:
   <ItemDescription>k__BackingField: Increase medium amount of health
   <ItemImage>k__BackingField: {fileID: -1495454906, guid: 9093110c39210e249b9cbd57a7e8e1f3, type: 3}
   itemTier: 30
+  itemTag: 0
+  itemSize: 30
